@@ -1,85 +1,58 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
-  runApp(MyApp());
+  return runApp(
+    MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.red,
+        appBar: AppBar(
+          title: Text('Dicee'),
+          backgroundColor: Colors.red,
+        ),
+        body: DicePage(),
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  const DicePage({super.key});
+  @override
+  State<StatefulWidget> createState() {
+    return _DicePage();
+  }
+}
+
+class _DicePage extends State<DicePage> {
+  var leftDiceNumber = 5;
+  var rightDiceNumber = 1;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.teal,
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const CircleAvatar(
-                radius: 50.0,
-                backgroundColor: Colors.red,
-                backgroundImage: AssetImage('images/user.jpg'),
-              ),
-              const Text(
-                'Angle Tu',
-                style: TextStyle(
-                    fontSize: 20.0,
-                    fontFamily: 'Pacifico',
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'FLUTTER DEVELOPER',
-                style: TextStyle(
-                    color: Colors.teal.shade100,
-                    fontSize: 10.0,
-                    letterSpacing: 2.5,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 20.0,
-                width: 150.0,
-                child: Divider(color: Colors.teal.shade100),
-              ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(10.0),
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.phone,
-                      color: Colors.teal.shade900,
-                    ),
-                    Text(
-                      '+44 123 456 789',
-                      style: TextStyle(
-                          color: Colors.teal.shade900, fontSize: 10.0),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(10.0),
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.email,
-                      color: Colors.teal.shade900,
-                    ),
-                    Text(
-                      'angle@email.com',
-                      style: TextStyle(
-                          color: Colors.teal.shade900, fontSize: 10.0),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+    return Center(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+              child: TextButton(
+            onPressed: () {
+              setState(() {
+                leftDiceNumber = Random().nextInt(6) + 1;
+              });
+            },
+            child: Image.asset('images/dice$leftDiceNumber.png'),
+          )),
+          Expanded(
+              child: TextButton(
+            onPressed: () {
+              setState(() {
+                rightDiceNumber = Random().nextInt(6) + 1;
+              });
+            },
+            child: Image.asset('images/dice$rightDiceNumber.png'),
+          )),
+        ],
       ),
     );
   }
